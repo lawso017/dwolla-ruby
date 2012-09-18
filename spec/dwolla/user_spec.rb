@@ -58,7 +58,8 @@ describe Dwolla::User do
                                               :description => description,
                                               :amount => 10,
                                               :type => :send,
-                                              :pin => '2222').and_return(transaction)
+                                              :pin => '2222',
+                                              :funds_source => nil).and_return(transaction)
 
         transaction.should_receive(:execute).and_return(transaction_id)
 
@@ -83,7 +84,8 @@ describe Dwolla::User do
                                               :description => description,
                                               :amount => 10,
                                               :type => :send,
-                                              :pin => '2222').and_return(transaction)
+                                              :pin => '2222',
+                                              :funds_source => nil).and_return(transaction)
 
         transaction.should_receive(:execute).and_return(transaction_id)
 
@@ -124,7 +126,7 @@ describe Dwolla::User do
         amount = 10
         pin = '2222'
         description = "Sending a transaction"
-         
+
         transaction = double('transaction')
         transaction_id = 123
 
@@ -139,7 +141,7 @@ describe Dwolla::User do
         transaction.should_receive(:execute).and_return(transaction_id)
 
         user.request_money_from(source_user_id, amount, pin, 'email', description).should == 123
-      end    
+      end
     end
   end
 
@@ -150,7 +152,7 @@ describe Dwolla::User do
     user = Dwolla::User.me(oauth_token)
     user.balance.should == 55.76
   end
-  
+
   describe "Getting a list of funding sources" do
     before :each do
       user = Dwolla::User.me(oauth_token)
