@@ -8,10 +8,12 @@ module Dwolla
                   :longitude,
                   :city,
                   :state,
+                  :zip,
                   :type,
                   :contact_type,
                   :image,
-                  :oauth_token
+                  :oauth_token,
+                  :registrationstep
 
     def initialize(attrs={})
       update_attributes(attrs)
@@ -37,7 +39,7 @@ module Dwolla
     def balance
       get('balance')
     end
-    
+
     def funding_sources
       sources = get('fundingsources')
       sources.map{|s| FundingSource.from_json(s)}
